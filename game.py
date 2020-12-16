@@ -19,6 +19,23 @@ while True:
     
     for y in range(0, nxC):
         for x in range(0, nyC):
+            #Nro de vecinos
+
+            n_neigh =   gameState[(x-1) % nxC, (y-1) % nyC] + \
+                        gameState[(x)   % nxC, (y-1) % nyC] + \
+                        gameState[(x+1) % nxC, (y-1) % nyC] + \
+                        gameState[(x-1) % nxC, (y) % nyC] + \
+                        gameState[(x+1) % nxC, (y) % nyC] + \
+                        gameState[(x-1) % nxC, (y+1) % nyC] + \
+                        gameState[(x) % nxC, (y+1) % nyC] + \
+                        gameState[(x+1) % nxC, (y+1) % nyC] 
+            #Regla 1 Cuando la celula muerta tiene exactamente 3 vecinas vivas, REVIVE
+            if gameState[x, y] == 0 and n_neigh == 3:
+                gameState[x, y] = 1
+            #Regla 2 Caundo la celula viva tiene 2 o mas vecinas vivas, MUERE 
+            elif gameState[x, y] == 1 and(n_neigh < 2 or n_neigh > 3):
+                gameState[x, y] = 0
+            
             poly = [((x) * dimCW, y *dimCH),
                     ((x+1) * dimCW, y * dimCH),
                     ((x+1) * dimCW, (y+1) * dimCH),
